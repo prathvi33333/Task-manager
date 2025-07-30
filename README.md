@@ -35,9 +35,9 @@ Manage your daily to-do list right from your terminal with features like add, vi
 ```
 
 task\_manager/
-├── main.py         # Main Python script
-├── tasks.csv       # Auto-created CSV file to store tasks
-└── README.md       # Project documentation
+├── main.py   # Main Python script
+├── tasks.csv # Auto-created CSV                   file to store                      tasks
+└── README.md # Project     documentation
 
 ````
 
@@ -110,15 +110,4 @@ This project is free to use under the [MIT License](LICENSE).
 
 ## ✨ Author
 
-Made with ❤️ by \[Your Name]
-
-```
-
----
-
-✅ **Replace**:
-- `your-username` with your GitHub username
-- `[Your Name]` with your actual name
-
-Let me know when you finish uploading — I can help you review your GitHub repo too!
-```
+Made with ❤️ by Prathviraj J 
