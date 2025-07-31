@@ -9,6 +9,8 @@ A simple and beginner-friendly **command-line task manager app** built using Pyt
 Manage your daily to-do list right from your terminal with features like add, view, delete, mark as done, search, and filter.
 
 ---
+▶️ [Live Project Demo](https://179929c4-a050-4bd5-ba2e-688762fa955b-00-2jzppcmb7mp8v.kirk.replit.dev/) – Hosted version of the Task Manager showcasing full CRUD operations using Python + Flask.
+---
 
 ## 🚀 Features
 
