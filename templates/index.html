@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Manager</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+    .done { text-decoration: line-through; color: gray; }
+    .task { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h2>My Task Manager</h2>
+
+  <!-- Add Task Form -->
+  <form method="POST" action="/">
+    <input type="text" name="title" placeholder="Enter task title" required>
+    <button type="submit">Add Task</button>
+  </form>
+
+  <!-- Search & Filter -->
+  <form method="GET" action="/" style="margin-top:10px;">
+    <input type="text" name="search" placeholder="Search tasks" value="{{ search }}">
+    <select name="status">
+      <option value="">All</option>
+      <option value="done" {% if status == 'done' %}selected{% endif %}>Done</option>
+      <option value="not_done" {% if status == 'not_done' %}selected{% endif %}>Not Done</option>
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+
+  <!-- Task List -->
+  <ul>
+    {% for task in tasks %}
+      <li class="task">
+        <span class="{{ 'done' if task.done else '' }}">{{ task.title }}</span>
+        <a href="{{ url_for('mark_done', task_id=task.id) }}">[Mark {{ 'Not Done' if task.done else 'Done' }}]</a>
+        <a href="{{ url_for('delete', task_id=task.id) }}">[Delete]</a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
