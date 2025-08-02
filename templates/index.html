@@ -1,45 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task Manager</title>
   <style>
-    body { font-family: Arial; max-width: 700px; margin: auto; padding: 20px; }
-    .done { text-decoration: line-through; color: gray; }
-    .task { margin-bottom: 10px; }
-    input, textarea, select, button { margin: 4px 0; width: 100%; padding: 8px; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    form {
+      margin-bottom: 15px;
+    }
+    input, textarea, select, button {
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    .task {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 5px solid #3498db;
+      border-radius: 6px;
+    }
+    .done {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .task a {
+      text-decoration: none;
+      margin-right: 10px;
+      color: #3498db;
+    }
+    .task a:hover {
+      color: #21618c;
+    }
+    small {
+      display: block;
+      color: #555;
+    }
   </style>
 </head>
 <body>
-  <h2>My Task Manager</h2>
+  <h2>🌟 My Task Manager</h2>
 
   <!-- Add Task Form -->
   <form method="POST" action="/">
     <input type="text" name="title" placeholder="Task Title" required>
     <textarea name="description" placeholder="Task Description" required></textarea>
     <input type="text" name="due_date" placeholder="Due Date (e.g., 2025-08-01)" required>
-    <button type="submit">Add Task</button>
+    <button type="submit">➕ Add Task</button>
   </form>
 
   <!-- Search & Filter -->
-  <form method="GET" action="/" style="margin-top:10px;">
+  <form method="GET" action="/">
     <input type="text" name="search" placeholder="Search tasks" value="{{ search }}">
     <select name="status">
       <option value="">All</option>
       <option value="done" {% if status == 'done' %}selected{% endif %}>Done</option>
       <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
     </select>
-    <button type="submit">Filter</button>
+    <button type="submit">🔍 Filter</button>
   </form>
 
   <!-- Task List -->
   <ul>
     {% for task in tasks %}
       <li class="task">
-        <strong class="{{ 'done' if task.status == 'Done' else '' }}">{{ task.title }}</strong><br>
-        <small>{{ task.description }}</small><br>
-        <small>Due: {{ task.due_date }}</small><br>
-        <a href="{{ url_for('mark_done', task_id=task.id) }}">[Mark {{ 'Pending' if task.status == 'Done' else 'Done' }}]</a>
-        <a href="{{ url_for('delete', task_id=task.id) }}">[Delete]</a>
+        <strong class="{{ 'done' if task.status == 'Done' else '' }}">{{ task.title }}</strong>
+        <small>{{ task.description }}</small>
+        <small>📅 Due: {{ task.due_date }}</small>
+        <a href="{{ url_for('mark_done', task_id=task.id) }}">✅ Mark {{ 'Pending' if task.status == 'Done' else 'Done' }}</a>
+        <a href="{{ url_for('delete', task_id=task.id) }}">🗑️ Delete</a>
       </li>
     {% endfor %}
   </ul>
