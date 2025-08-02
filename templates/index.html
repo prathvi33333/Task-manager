@@ -3,9 +3,10 @@
 <head>
   <title>Task Manager</title>
   <style>
-    body { font-family: Arial; max-width: 600px; margin: auto; padding: 20px; }
+    body { font-family: Arial; max-width: 700px; margin: auto; padding: 20px; }
     .done { text-decoration: line-through; color: gray; }
     .task { margin-bottom: 10px; }
+    input, textarea, select, button { margin: 4px 0; width: 100%; padding: 8px; }
   </style>
 </head>
 <body>
@@ -13,7 +14,9 @@
 
   <!-- Add Task Form -->
   <form method="POST" action="/">
-    <input type="text" name="title" placeholder="Enter task title" required>
+    <input type="text" name="title" placeholder="Task Title" required>
+    <textarea name="description" placeholder="Task Description" required></textarea>
+    <input type="text" name="due_date" placeholder="Due Date (e.g., 2025-08-01)" required>
     <button type="submit">Add Task</button>
   </form>
 
@@ -23,7 +26,7 @@
     <select name="status">
       <option value="">All</option>
       <option value="done" {% if status == 'done' %}selected{% endif %}>Done</option>
-      <option value="not_done" {% if status == 'not_done' %}selected{% endif %}>Not Done</option>
+      <option value="pending" {% if status == 'pending' %}selected{% endif %}>Pending</option>
     </select>
     <button type="submit">Filter</button>
   </form>
@@ -32,8 +35,10 @@
   <ul>
     {% for task in tasks %}
       <li class="task">
-        <span class="{{ 'done' if task.done else '' }}">{{ task.title }}</span>
-        <a href="{{ url_for('mark_done', task_id=task.id) }}">[Mark {{ 'Not Done' if task.done else 'Done' }}]</a>
+        <strong class="{{ 'done' if task.status == 'Done' else '' }}">{{ task.title }}</strong><br>
+        <small>{{ task.description }}</small><br>
+        <small>Due: {{ task.due_date }}</small><br>
+        <a href="{{ url_for('mark_done', task_id=task.id) }}">[Mark {{ 'Pending' if task.status == 'Done' else 'Done' }}]</a>
         <a href="{{ url_for('delete', task_id=task.id) }}">[Delete]</a>
       </li>
     {% endfor %}
